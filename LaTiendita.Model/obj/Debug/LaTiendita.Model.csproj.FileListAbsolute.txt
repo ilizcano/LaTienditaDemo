@@ -1,4 +1,0 @@
-C:\Projects\LaTiendita\LaTiendita.Model\bin\Debug\LaTiendita.Model.dll
-C:\Projects\LaTiendita\LaTiendita.Model\bin\Debug\LaTiendita.Model.pdb
-C:\Projects\LaTiendita\LaTiendita.Model\obj\Debug\LaTiendita.Model.dll
-C:\Projects\LaTiendita\LaTiendita.Model\obj\Debug\LaTiendita.Model.pdb
