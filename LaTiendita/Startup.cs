@@ -8,7 +8,6 @@ namespace LaTiendita
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
             UnityConfig.RegisterComponents();
         }
     }

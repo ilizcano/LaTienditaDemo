@@ -2,6 +2,7 @@
 using LaTiendita.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.DirectoryServices.AccountManagement;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,6 +12,7 @@ namespace LaTiendita.Controllers
     public class HomeController : Controller
     {
         private readonly IProductsService ProductsService;
+
         public HomeController(IProductsService productsService)
         {
             ProductsService = productsService;
@@ -18,20 +20,18 @@ namespace LaTiendita.Controllers
 
         public ActionResult Index()
         {
-            return View();
-        }
+            using (var ctx = new PrincipalContext(ContextType.Domain, "test"))
+            {
+                var user = UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, Environment.UserName);
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+                if (user == null)
+                {
+                    return View("AccessDenied");
+                }
 
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
+                ViewBag.UserName = user.DisplayName;
+            }
+            
             return View();
         }
 
