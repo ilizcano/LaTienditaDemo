@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace LaTiendita.Services.Interfaces
 {
-    public interface IProductsService
+    public interface IPaymentService
     {
-        List<Product> GetProducts();
+        List<Payment> GetPayments();
     }
 }

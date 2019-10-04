@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace LaTiendita.Services
 {
-    public class ProductsService: IProductService
+    public class PaymentService : IPaymentService
     {
         private readonly IUnitOfWork UnitOfWork;
 
-        public ProductsService(IUnitOfWork unitOfWork)
+        public PaymentService(IUnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
         }
 
-        public List<Product> GetProducts()
+        public List<Payment> GetPayments()
         {
-            return UnitOfWork.GetRepository<Product>().GetAll().ToList();
+            return UnitOfWork.GetRepository<Payment>().GetAll().ToList();
         }
     }
 }

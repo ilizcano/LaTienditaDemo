@@ -11,11 +11,17 @@ namespace LaTiendita.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IProductsService ProductsService;
+        private readonly IProductService ProductsService;
+        private readonly IUserService UserService;
+        private readonly IPaymentService PaymentService;
+        private readonly IPurchaseService PurchaseService;
 
-        public HomeController(IProductsService productsService)
+        public HomeController(IProductService productsService, IUserService usersService, IPaymentService paymentService, IPurchaseService purchaseService)
         {
             ProductsService = productsService;
+            UserService = usersService;
+            PaymentService = paymentService;
+            PurchaseService = purchaseService;
         }
 
         public ActionResult Index()
@@ -38,6 +44,21 @@ namespace LaTiendita.Controllers
         public JsonResult GetProducts()
         {
             var result = ProductsService.GetProducts();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetUsers()
+        {
+            var result = UserService.GetUsers();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetPayment()
+        {
+            var result = PaymentService.GetPayments();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetPurchase()
+        {
+            var result = PurchaseService.GetPurchases();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
     }

@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace LaTiendita.Model
 {
-    [Table("Product")]
-    public class Product
+    [Table("Purchase")]
+    public class Purchase
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
+        public int PurchaseId { get; set; }
         public int ProductId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public double Price { get; set; }
+        public int Quantity { get; set; }
+        public double Amount { get; set; }
+        public int UserId { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime UpdateDate { get; set; }
         public bool IsDeleted { get; set; }
-
     }
 }
