@@ -17,6 +17,9 @@ namespace LaTiendita
             // register all your components with the container here
             container.RegisterType<IUnitOfWork, UnitOfWork>();
             container.RegisterType<IProductService, ProductsService>();
+            container.RegisterType<IPaymentService, PaymentService>();
+            container.RegisterType<IPurchaseService, PurchaseService>();
+            container.RegisterType<IUserService, UsersService>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
