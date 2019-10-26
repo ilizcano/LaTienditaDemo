@@ -41,6 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Category.cs" />
+    <Compile Include="Dto\CategoryDto.cs" />
+    <Compile Include="Dto\ProductDto.cs" />
+    <Compile Include="Exceptions\ValidateNameExeption.cs" />
     <Compile Include="Purchase.cs" />
     <Compile Include="Users.cs" />
     <Compile Include="Payment.cs" />

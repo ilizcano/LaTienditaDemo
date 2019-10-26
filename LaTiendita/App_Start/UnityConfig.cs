@@ -10,6 +10,7 @@ namespace LaTiendita
 {
     public static class UnityConfig
     {
+
         public static void RegisterComponents()
         {
 			var container = new UnityContainer();
@@ -20,6 +21,8 @@ namespace LaTiendita
             container.RegisterType<IPaymentService, PaymentService>();
             container.RegisterType<IPurchaseService, PurchaseService>();
             container.RegisterType<IUserService, UsersService>();
+            container.RegisterType<ICategoryService, CategoryService>();
+
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
