@@ -53,6 +53,15 @@
     <Compile Include="AppContext.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Migrations\201910191846290_InitialCreate.cs" />
+    <Compile Include="Migrations\201910191846290_InitialCreate.Designer.cs">
+      <DependentUpon>201910191846290_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910280107042_addCategoryModel.cs" />
+    <Compile Include="Migrations\201910280107042_addCategoryModel.Designer.cs">
+      <DependentUpon>201910280107042_addCategoryModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="UnitOfWork.cs" />
@@ -66,6 +75,14 @@
       <Project>{500e6808-872c-489f-b035-35af6864eade}</Project>
       <Name>LaTiendita.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201910191846290_InitialCreate.resx">
+      <DependentUpon>201910191846290_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910280107042_addCategoryModel.resx">
+      <DependentUpon>201910280107042_addCategoryModel.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

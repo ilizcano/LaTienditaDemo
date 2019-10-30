@@ -40,7 +40,7 @@ namespace LaTiendita.Controllers
             //    ViewBag.UserName = user.DisplayName;
             //}
             
-            return View();
+            return new FilePathResult("~/Front/index.html", "text/html"); ;
         }
 
         public JsonResult GetProducts()

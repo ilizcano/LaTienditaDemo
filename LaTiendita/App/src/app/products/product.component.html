@@ -1,0 +1,48 @@
+<h1 class="my-4">Register Product</h1>
+<!--/.row-->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-align-justify"></i> Form Product
+            </div>
+            <div class="card-body">
+                <form [formGroup]="productFormGroup">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="nf-name">Name</label>
+                                <input type="text" id="nameProduct" class="form-control"  maxlength="100" name="nameProduct" formControlName="nameControl"  
+                                    placeholder="Name of product" />
+                            </div>
+                            <div class="form-group">
+                                <label for="nf-name">Price</label>
+                                <input type="text" id="priceProduct" formControlName="priceControl" name="priceProduct" class="form-control"
+                                    placeholder="Price of product">
+                            </div>
+                            <div class="form-group">
+                                <label for="nf-name">Description</label>
+                                <textarea id="descriptionProduct" maxlength="200" formControlName="descriptionControl" name="descriptionProduct" rows="3"
+                                    class="form-control" placeholder="Description of product"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- <button type="button" class="btn btn-info active" aria-pressed="true"
+                                routerLink="/managementproduct"><i class="fa fa-plus-square-o"></i> &nbsp;
+                               Back</button> -->
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <button type="button" (click)="onSaveProduct()" [disabled]="productFormGroup.invalid" class="btn btn-info active float-right" aria-pressed="true"
+                            style="margin-left: 9px;"><i class="fa fa-filter"></i>&nbsp;Save</button>
+                        <button type="button" class="btn btn-info active float-right" routerLink="/managementproduct"
+                            aria-pressed="true"><i class="fa fa-hand-o-right"></i>&nbsp;Back</button>
+                    </div>
+                </div>
+
+                <br />
+            </div>
+        </div>
+    </div>
+</div>

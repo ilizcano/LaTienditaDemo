@@ -20,9 +20,16 @@ namespace LaTiendita.DataAccess
             Context = context;
             DbSet = context.Set<TEntity>();
         }
+
         public void Add(TEntity entity)
         {
             DbSet.Add(entity);
+        }
+
+        public void Update(TEntity entity)
+        {
+            if (entity == null) throw new ArgumentNullException(nameof(entity));
+            Context.Entry(entity).State = EntityState.Modified;
         }
 
         public void Delete(TEntity entity)

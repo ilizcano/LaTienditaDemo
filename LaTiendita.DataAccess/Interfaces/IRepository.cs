@@ -13,6 +13,7 @@ namespace LaTiendita.DataAccess.Interfaces
         IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate);
         IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "");
         void Add(TEntity entity);
+        void Update(TEntity entity);
         void Delete(TEntity entity);
     }
 }
