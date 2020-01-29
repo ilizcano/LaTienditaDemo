@@ -1,0 +1,56 @@
+﻿@using LaTiendita.Models
+@model PurchaseModel
+
+@{
+    ViewBag.Title = "Comprar";
+}
+<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Message</h3>
+@using (Html.BeginForm("Buy", "Venta"))
+{
+    <div class="row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.Product)
+        </div>
+
+        <div class="col-md-2">
+            @Html.TextBoxFor(model => model.Product)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.Amount)
+        </div>
+
+        <div class="col-md-2">
+            @Html.TextBoxFor(model => model.Amount)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.Price)
+        </div>
+
+        <div class="col-md-2">
+            @Html.TextBoxFor(model => model.Price)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">
+            Total:
+        </div>
+
+        <div class="col-md-2">
+            <input type="text" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lx-1">
+            <input type="submit" value="Comprar" />
+        </div>
+    </div>
+}

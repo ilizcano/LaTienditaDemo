@@ -26,17 +26,17 @@ namespace LaTiendita.Controllers
 
         public ActionResult Index()
         {
-            using (var ctx = new PrincipalContext(ContextType.Domain, "test"))
-            {
-                var user = UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, Environment.UserName);
+            //using (var ctx = new PrincipalContext(ContextType.Domain, "test"))
+            //{
+            //    var user = UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, Environment.UserName);
 
-                if (user == null)
-                {
-                    return View("AccessDenied");
-                }
+            //    if (user == null)
+            //    {
+            //        return View("AccessDenied");
+            //    }
 
-                ViewBag.UserName = user.DisplayName;
-            }
+            //    ViewBag.UserName = user.DisplayName;
+            //}
             
             return View();
         }
