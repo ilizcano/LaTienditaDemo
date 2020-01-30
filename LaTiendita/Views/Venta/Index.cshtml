@@ -6,65 +6,65 @@
     ViewBag.Title = "Comprar";
     var products = (List<Product>)ViewBag.Products;
 }
-<div id="purchaseModule">
-    <h2>@ViewBag.Title</h2>
-    <h3>@ViewBag.Message</h3>
+    <div id="purchaseModule">
+        <h2>@ViewBag.Title</h2>
+        <h3>@ViewBag.Message</h3>
 
-    @using (Ajax.BeginForm("Index", "Venta", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "purchaseModule" }))
-    {
-        <div class="row">
-            <div class="col-md-2">
+        @using (Ajax.BeginForm("Index", "Venta", new AjaxOptions { HttpMethod = "POST", OnSuccess = "alert('Purchase completed, your balance has been updated.')", UpdateTargetId = "purchaseModule" }))
+        {
+            <div class="row">
+                <div class="col-md-2">
 
-                @Html.LabelFor(model => model.ProductId)
+                    @Html.LabelFor(model => model.ProductId)
+                </div>
+                <div class="col-md-2">
+                    @Html.DropDownListFor(model => model.ProductId, (from p in products
+                                                                        orderby p.Name
+                                                                        select new SelectListItem
+                                                                        {
+                                                                            Text = string.Format("{0} - ${1:0.##}", p.Name, p.Price),
+                                                                            Value = p.ProductId.ToString()
+                                                                        }), "-- SELECT PRODUCT --", new { @onchange = "productChanged(this.value)" })
+                </div>
             </div>
-            <div class="col-md-2">
-                @Html.DropDownListFor(model => model.ProductId, (from p in products
-                                                                    orderby p.Name
-                                                                    select new SelectListItem
-                                                                    {
-                                                                        Text = string.Format("{0} - ${1:0.##}", p.Name, p.Price),
-                                                                        Value = p.ProductId.ToString()
-                                                                    }), "-- SELECT PRODUCT --", new { @onchange = "productChanged(this.value)" })
-            </div>
-        </div>
-        <br />
-        <div class="row">
-            <div class="col-md-2">
-                @Html.LabelFor(model => model.Quantity)
-            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Quantity)
+                </div>
 
-            <div class="col-md-2">
-                @Html.TextBoxFor(model => model.Quantity, new { @type = "number", @Value = "1", @onchange = "quantityChanged(this.value)" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(model => model.Quantity, new { @type = "number", @Value = "1", @onchange = "quantityChanged(this.value)" })
+                </div>
             </div>
-        </div>
-        <br />
-        <div class="row">
-            <div class="col-md-2">
-                @Html.LabelFor(model => model.Price)
-            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Price)
+                </div>
 
-            <div class="col-md-2">
-                @Html.TextBoxFor(model => model.Price, new { @readonly = true })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(model => model.Price, new { @readonly = true })
+                </div>
             </div>
-        </div>
-        <br />
-        <div class="row">
-            <div class="col-md-2">
-                @Html.LabelFor(model => model.Total)
-            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Total)
+                </div>
 
-            <div class="col-md-2">
-                @Html.TextBoxFor(model => model.Total, new { @readonly = true })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(model => model.Total, new { @readonly = true })
+                </div>
             </div>
-        </div>
-        <br />
-        <div class="row">
-            <div class="col-lx-1">
-                <input type="submit" value="Comprar" />
+            <br />
+            <div class="row">
+                <div class="col-lx-1">
+                    <input type="submit" value="Comprar" />
+                </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/unobtrusive")
@@ -96,5 +96,7 @@
         $('#Total').val(+val * price);
     }
 
-
+    function showSuccessMessage() {
+      $("<div>Purchase completed, your balance has been updated.</div>").dialog("open");
+    }
 </script>
