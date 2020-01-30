@@ -9,10 +9,15 @@ namespace LaTiendita.Models
     public class PurchaseModel
     {
         [DisplayName("Producto:")]
-        public string Product { get; set; }
+        public int ProductId { get; set; }
+        
         [DisplayName("Cantidad:")]
-        public int Amount { get; set; }
+        public int Quantity { get; set; }
+
         [DisplayName("Precio:")]
         public decimal Price { get; set; }
+
+        [DisplayName("Total:")]
+        public decimal Total { get; set; }
     }
 }

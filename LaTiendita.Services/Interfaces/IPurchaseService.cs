@@ -6,5 +6,6 @@ namespace LaTiendita.Services.Interfaces
     public interface IPurchaseService
     {
         List<Purchase> GetPurchases();
+        void SavePurchase(Purchase purchase);
     }
 }

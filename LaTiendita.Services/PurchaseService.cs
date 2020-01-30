@@ -22,5 +22,10 @@ namespace LaTiendita.Services
         {
             return UnitOfWork.GetRepository<Purchase>().GetAll().ToList();
         }
+
+        public void SavePurchase(Purchase purchase) {
+            UnitOfWork.GetRepository<Purchase>().Add(purchase);
+            UnitOfWork.SaveChanges();
+        }
     }
 }

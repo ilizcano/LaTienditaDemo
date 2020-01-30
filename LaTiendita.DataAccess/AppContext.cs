@@ -8,7 +8,7 @@ namespace LaTiendita.DataAccess
     public class AppContext: DbContext
     {
         IDbSet<Product> Products { get; set; }
-
+        IDbSet<Purchase> Purchases { get; set; }
         public AppContext()
             :base(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString)
         {

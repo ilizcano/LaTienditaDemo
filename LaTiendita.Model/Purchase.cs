@@ -16,7 +16,7 @@ namespace LaTiendita.Model
         public int PurchaseId { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
         public int UserId { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime UpdateDate { get; set; }
