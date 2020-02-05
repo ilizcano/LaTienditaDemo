@@ -6,5 +6,6 @@ namespace LaTiendita.Services.Interfaces
     public interface IUserService
     {
         List<User> GetUsers();
+        User GetUserByName(string name);
     }
 }

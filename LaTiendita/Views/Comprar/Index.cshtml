@@ -10,8 +10,11 @@
         <h2>@ViewBag.Title</h2>
         <h3>@ViewBag.Message</h3>
 
-        @using (Ajax.BeginForm("Index", "Venta", new AjaxOptions { HttpMethod = "POST", OnSuccess = "alert('Purchase completed, your balance has been updated.')", UpdateTargetId = "purchaseModule" }))
+        @using (Ajax.BeginForm("Index", "Comprar",null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "purchaseModule" }, new { @id = "compraForm" }))
         {
+            <div class="row">
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            </div>
             <div class="row">
                 <div class="col-md-2">
 
@@ -24,7 +27,7 @@
                                                                         {
                                                                             Text = string.Format("{0} - ${1:0.##}", p.Name, p.Price),
                                                                             Value = p.ProductId.ToString()
-                                                                        }), "-- SELECT PRODUCT --", new { @onchange = "productChanged(this.value)" })
+                                                                        }), "-- SELECT PRODUCT --")
                 </div>
             </div>
             <br />
@@ -34,7 +37,7 @@
                 </div>
 
                 <div class="col-md-2">
-                    @Html.TextBoxFor(model => model.Quantity, new { @type = "number", @Value = "1", @onchange = "quantityChanged(this.value)" })
+                    @Html.TextBoxFor(model => model.Quantity, new { @type = "number", @Value = "1" })
                 </div>
             </div>
             <br />
@@ -60,43 +63,60 @@
             <br />
             <div class="row">
                 <div class="col-lx-1">
-                    <input type="submit" value="Comprar" />
+                    <input id="submitFormCompra" class="btn btn-primary" type="submit" value="Comprar" />
+                    <input id="resetFormCompra" class="btn btn-warning" type="button" value="Cancelar" />
                 </div>
             </div>
         }
     </div>
-
+    <div id="successDialog" title="Success" style="display:none;">Purchase completed, your balance has been updated.</div>
 @section Scripts {
     @Scripts.Render("~/bundles/unobtrusive")
 }
 
 <script type="text/javascript">
+$(function() {
 
     var productsAvailable = @Html.Raw(Json.Encode(products));
-    @*@foreach (var p in products)
-    {
-        @:productsAvailable.push({
-            Name:  '@p.Name',
 
-        });
+    @if (Model.IsValid && !Model.IsNew) { 
+        @: $("#successDialog").dialog();
+    }
+    resetFormCompra();
 
-    }*@
+    $("#ProductId").change(function () {
+        let selectedProduct = productsAvailable.find(p => p.ProductId == $("#ProductId").val());
 
-    function productChanged(val) {
-        let selectedProduct = productsAvailable.find(p => p.ProductId == val);
         if (typeof selectedProduct !== 'undefined') {
             $('#Quantity').val(1);
             $('#Price').val(selectedProduct.Price);
             $('#Total').val(+selectedProduct.Price);
+        } else {
+            $('#Quantity').val(1);
+            $('#Price').val('');
+            $('#Total').val('');
         }
+    });
+
+    function resetFormCompra() {
+        $("#ProductId").val('');
+
+        $('#Quantity').val(1);
+        $('#Price').val('');
+        $('#Total').val('');
+        
     }
 
-    function quantityChanged(val) {
+    $("#resetFormCompra").click(function () {
+        resetFormCompra();
+    });
+
+    $("#Quantity").change(function () {
         let price = $('#Price').val();
-        $('#Total').val(+val * price);
-    }
+        let quantity = $("#Quantity").val();
+        $('#Total').val(+quantity * price);
+    });
 
-    function showSuccessMessage() {
-      $("<div>Purchase completed, your balance has been updated.</div>").dialog("open");
-    }
+});
+
 </script>

@@ -22,5 +22,10 @@ namespace LaTiendita.Services
         {
             return UnitOfWork.GetRepository<User>().GetAll().ToList();
         }
+
+        public User GetUserByName(string name)
+        {
+            return UnitOfWork.GetRepository<User>().GetAll(u => u.Name == name).FirstOrDefault();
+        }
     }
 }

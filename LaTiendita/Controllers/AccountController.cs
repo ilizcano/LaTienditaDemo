@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LaTiendita.Models;
+using LaTiendita.Services.Interfaces;
 
 namespace LaTiendita.Controllers
 {
@@ -17,9 +18,10 @@ namespace LaTiendita.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
-        public AccountController()
+        private readonly IUserService UserService;
+        public AccountController(IUserService userService)
         {
+            UserService = userService;
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -421,6 +423,12 @@ namespace LaTiendita.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        public JsonResult GetUsers()
+        {
+            var result = UserService.GetUsers();
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         #region Helpers
