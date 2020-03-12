@@ -27,5 +27,22 @@ namespace LaTiendita.Services
         {
             return UnitOfWork.GetRepository<User>().GetAll(u => u.Name == name).FirstOrDefault();
         }
+
+        public void UpdateBalance(int userId, double amount)
+        {
+            var user = UnitOfWork.GetRepository<User>().Get(u => u.UserId == userId).FirstOrDefault();
+            user.Balance = (user.Balance - amount);
+            UnitOfWork.SaveChanges();
+        }
+
+        public double GetBalance(int userId)
+        {
+            var user = UnitOfWork.GetRepository<User>().Get(u => u.UserId == userId).FirstOrDefault();
+
+            if (user == null)
+                throw new Exception("User does not exist");
+            else
+                return user.Balance;
+        }
     }
 }

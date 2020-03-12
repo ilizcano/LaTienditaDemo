@@ -7,5 +7,7 @@ namespace LaTiendita.Services.Interfaces
     {
         List<User> GetUsers();
         User GetUserByName(string name);
+        void UpdateBalance(int userId, double amount);
+        double GetBalance(int userId);
     }
 }

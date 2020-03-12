@@ -20,14 +20,8 @@
                 </button>
                 @Html.ActionLink("La Tiendita", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 @Html.ActionLink("Comprar", "Index", "Comprar", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Pagar", "Index", "Pago", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            @*<div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    </ul>
-                </div>*@
             <div style="float:right; margin-top:15px; color:white">
                 @ViewBag.UserName
             </div>

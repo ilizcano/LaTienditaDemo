@@ -1,41 +1,87 @@
-﻿@{
+﻿@using LaTiendita.Models
+@using LaTiendita.Model
+@model PaymentModel
+
+
+@{
     ViewBag.Title = "Pagar";
 }
-<h2>@ViewBag.Title</h2>
-<h3>@ViewBag.Message</h3>
 
-<div class="row">
-    <div class="col-md-2">
-        Saldo:
-    </div>
+<div id="paymentModule">
+    <h2>@ViewBag.Title</h2>
+    <h3>@ViewBag.Message</h3>
 
-    <div class="col-md-2">
-       $218
-    </div>
-</div>
-<br />
-<div class="row">
-    <div class="col-md-2">
-        Cantidad:
-    </div>
+    @using (Ajax.BeginForm("Index", "Pago", null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "paymentModule" }, new { @id = "pagoForm" }))
+    {
+        <div class="row">
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.Balance)
+            </div>
 
-    <div class="col-md-2">
-        <input type="text" />
-    </div>
-</div>
-<br />
-<div class="row">
-    <div class="col-md-2">
-        Nuevo Saldo:
-    </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(model => model.Balance, new { @readonly = true, @style= Model.Balance> 0 ? "color:green;" : "color:red;" })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.Amount)
+            </div>
 
-    <div class="col-md-2">
-       $150
-    </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(model => model.Amount, new { @required = "required" })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.NewBalance)
+            </div>
+
+            <div class="col-md-2">
+                @Html.TextBoxFor(model => model.NewBalance, new { @readonly = true, @Value = Model.Balance })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-lx-1">
+                <input id="submitFormPagar" class="btn btn-primary" type="submit" value="Pagar" disabled />
+                <input id="resetFormPagar" class="btn btn-warning" type="button" value="Cancelar" />
+            </div>
+        </div>
+    }
 </div>
-<br />
-<div class="row">
-    <div class="col-lx-1">
-        <input type="button" value="Pagar" />
-    </div>
-</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/unobtrusive")
+}
+
+<script type="text/javascript">
+$(function() {
+
+    $("#Amount").change(function () {
+        let balance = $("#Balance").val();
+        let amount = $("#Amount").val();
+
+        if (amount && balance) {
+            $('#NewBalance').val(balance - amount);
+        }
+
+        if (amount && amount > 0) {
+            $('#submitFormPagar').prop('disabled', false);
+        } else {
+            $('#submitFormPagar').prop('disabled', true);
+        }
+    });
+
+    function resetFormPagar() {
+        window.location.href = '../';
+    }
+
+    $("#resetFormPagar").click(function () {
+        resetFormPagar();
+    });
+
+});
+
+</script>

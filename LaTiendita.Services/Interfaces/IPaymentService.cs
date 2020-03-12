@@ -6,5 +6,6 @@ namespace LaTiendita.Services.Interfaces
     public interface IPaymentService
     {
         List<Payment> GetPayments();
+        void SavePayment(Payment payment);
     }
 }
