@@ -41,17 +41,21 @@ namespace LaTiendita.Controllers
             {
 
                 var currentUser = UserService.GetUserByName("demoUser");/*TODO: change to current user*/
+                var userId = currentUser == null ? 0 : currentUser.UserId;
 
                 PurchaseService.SavePurchase(new Model.Purchase
                 {
                     ProductId = model.ProductId,
                     Amount = model.Price * model.Quantity,
                     Quantity = model.Quantity,
-                    UserId = currentUser == null ? 0 : currentUser.UserId,
+                    UserId = userId,
                     IsDeleted = false,
                     CreationDate = DateTime.Now,
                     UpdateDate = DateTime.Now
                 });
+
+                var amount = Decimal.ToDouble(model.Price * model.Quantity) * -1;
+                UserService.UpdateBalance(userId, amount);
             }
             ViewBag.Products = ProductsService.GetProducts();
             return PartialView(model);
