@@ -19,7 +19,7 @@
             </div>
 
             <div class="col-md-2">
-                @Html.TextBoxFor(model => model.Balance, new { @readonly = true, @style= Model.Balance> 0 ? "color:green;" : "color:red;" })
+                @Html.TextBoxFor(model => model.Balance, new { @readonly = true, @Value = Model.Balance < 0 ? Model.Balance * -1 : Model.Balance, @style = Model.Balance < 0 ? "color:green;" : "" })
             </div>
         </div>
         <br />
@@ -39,7 +39,7 @@
             </div>
 
             <div class="col-md-2">
-                @Html.TextBoxFor(model => model.NewBalance, new { @readonly = true, @Value = Model.Balance })
+                @Html.TextBoxFor(model => model.NewBalance, new { @readonly = true, @Value = Model.Balance < 0 ? Model.Balance * -1 : Model.Balance, @style = Model.Balance < 0 ? "color:green;" : "" })
             </div>
         </div>
         <br />
@@ -64,7 +64,17 @@ $(function() {
         let amount = $("#Amount").val();
 
         if (amount && balance) {
-            $('#NewBalance').val(balance - amount);
+            let isPositiveBalance = $("#Balance").css('color') === "rgb(0, 128, 0)";
+            balance = isPositiveBalance ? balance * -1 : balance;
+            let newBalance = (balance - amount);
+            if (newBalance >= 0) {
+                $('#NewBalance').val(newBalance);
+                $('#NewBalance').css("color", "black");
+            } else {
+                $('#NewBalance').val(newBalance * -1);
+                $('#NewBalance').css("color", "green");
+            }
+            
         }
 
         if (amount && amount > 0) {
