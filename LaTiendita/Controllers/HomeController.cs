@@ -1,4 +1,5 @@
 ﻿using LaTiendita.Model;
+using LaTiendita.Models;
 using LaTiendita.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,27 +13,25 @@ namespace LaTiendita.Controllers
     public class HomeController : Controller
     {
         private readonly IProductService ProductsService;
+        private readonly IUserService UserService;
 
-        public HomeController(IProductService productsService)
+        public HomeController(IProductService productsService, IUserService userService)
         {
             ProductsService = productsService;
+            UserService = userService;
         }
 
         public ActionResult Index()
         {
-            //using (var ctx = new PrincipalContext(ContextType.Domain, "test"))
-            //{
-            //    var user = UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, Environment.UserName);
+            UserModel model = new UserModel();
+            var user = UserService.GetUserByName("demoUser");
+            model.UserId = user.UserId;
+            model.Name = user.Name;
+            model.IsDeleted = user.IsDeleted;
+            model.Email = user.Email;
+            model.Balance = user.Balance;
 
-            //    if (user == null)
-            //    {
-            //        return View("AccessDenied");
-            //    }
-
-            //    ViewBag.UserName = user.DisplayName;
-            //}
-            
-            return View();
+            return View(model);
         }
 
         public JsonResult GetProducts()

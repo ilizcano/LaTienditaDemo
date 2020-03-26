@@ -1,4 +1,7 @@
-﻿@{
+﻿@using LaTiendita.Models
+@model UserModel
+
+@{
     ViewBag.Title = "Inicio";
 }
 
@@ -6,10 +9,14 @@
     <h1>La tiendita</h1>
 </div>
 
-<div class="row">
+<div class="row" id="homeModule">
+    @using (Ajax.BeginForm("Index", "Home", null, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "homeModule", InsertionMode = InsertionMode.Replace }, new { @id = "homeForm" }))
+    {
     <div class="col-md-4">
-        <h2>Tu saldo es:</h2> $130
+        @Html.LabelFor(model => model.Balance)
+        @Html.TextBoxFor(model => model.Balance,  new { @readonly = true, @Value = Model.Balance < 0 ? Model.Balance * -1 : Model.Balance, @style = Model.Balance < 0 ? "color:green;border: 0;" : "border: 0;" })
     </div>
+    }
 
     <div class="col-md-4">
         <table>
