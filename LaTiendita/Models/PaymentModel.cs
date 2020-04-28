@@ -9,13 +9,12 @@ namespace LaTiendita.Models
 {
     public class PaymentModel
     {
-        private double amount;
-
         [DisplayName("User:")]
         [Required(ErrorMessage = "El Usuario es requerido")]
         public int UserId { get; set; }
 
         [DisplayName("Cantidad:")]
+        [RegularExpression(@"^\d+.\d{0,2}$", ErrorMessage = "Solo numeros con dos decimales permitidos")]
         [Required(ErrorMessage = "La Cantidad es requerida")]
         public double Amount { get; set; }
 

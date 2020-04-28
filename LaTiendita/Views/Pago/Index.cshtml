@@ -1,5 +1,4 @@
 ﻿@using LaTiendita.Models
-@using LaTiendita.Model
 @model PaymentModel
 
 
@@ -19,7 +18,7 @@
             </div>
 
             <div class="col-md-2">
-                @Html.TextBoxFor(model => model.Balance, new { @readonly = true, @Value = Model.Balance < 0 ? Model.Balance * -1 : Model.Balance, @style = Model.Balance < 0 ? "color:green;" : "" })
+                @Html.TextBoxFor(model => model.Balance, new { @readonly = true, @Value = Model.Balance < 0 ? (Model.Balance * -1).ToString("0.00") : Model.Balance.ToString("0.00"), @style = Model.Balance < 0 ? "color:green;" : "" })
             </div>
         </div>
         <br />
@@ -29,7 +28,7 @@
             </div>
 
             <div class="col-md-2">
-                @Html.TextBoxFor(model => model.Amount, new { @required = "required" })
+                @Html.TextBoxFor(model => model.Amount,"{0:n2}", new { @required = "required"})
             </div>
         </div>
         <br />
@@ -39,7 +38,7 @@
             </div>
 
             <div class="col-md-2">
-                @Html.TextBoxFor(model => model.NewBalance, new { @readonly = true, @Value = Model.Balance < 0 ? Model.Balance * -1 : Model.Balance, @style = Model.Balance < 0 ? "color:green;" : "" })
+                @Html.TextBoxFor(model => model.NewBalance, new { @readonly = true, @Value = Model.Balance < 0 ? (Model.Balance * -1).ToString("0.00") : Model.Balance.ToString("0.00"), @style = Model.Balance < 0 ? "color:green;" : "" })
             </div>
         </div>
         <br />
@@ -58,15 +57,16 @@
 
 <script type="text/javascript">
 $(function() {
-
     $("#Amount").change(function () {
         let balance = $("#Balance").val();
-        let amount = $("#Amount").val();
+        let amount = parseFloat($("#Amount").val().replace(/[^0-9.]/g, ''));
+        var cleanAmount = amount.toFixed(2);
+        $(this).val(cleanAmount);
 
-        if (amount && balance) {
+        if (cleanAmount && balance) {
             let isPositiveBalance = $("#Balance").css('color') === "rgb(0, 128, 0)";
             balance = isPositiveBalance ? balance * -1 : balance;
-            let newBalance = (balance - amount);
+            let newBalance = (balance - cleanAmount);
             if (newBalance >= 0) {
                 $('#NewBalance').val(newBalance);
                 $('#NewBalance').css("color", "black");
@@ -77,7 +77,7 @@ $(function() {
             
         }
 
-        if (amount && amount > 0) {
+        if (cleanAmount && cleanAmount > 0) {
             $('#submitFormPagar').prop('disabled', false);
         } else {
             $('#submitFormPagar').prop('disabled', true);

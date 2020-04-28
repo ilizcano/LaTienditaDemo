@@ -14,11 +14,13 @@ namespace LaTiendita.Controllers
     {
         private readonly IProductService ProductsService;
         private readonly IUserService UserService;
+        private readonly IPurchaseService PurchaseService;
 
-        public HomeController(IProductService productsService, IUserService userService)
+        public HomeController(IProductService productsService, IUserService userService, IPurchaseService purchaseService)
         {
             ProductsService = productsService;
             UserService = userService;
+            PurchaseService = purchaseService;
         }
 
         public ActionResult Index()
@@ -30,6 +32,9 @@ namespace LaTiendita.Controllers
             model.IsDeleted = user.IsDeleted;
             model.Email = user.Email;
             model.Balance = user.Balance;
+            model.PurchaseList = (from pp in PurchaseService.GetPurchasesByUserId(user.UserId).OrderByDescending(p => p.CreationDate).Take(10)
+                                  join p in ProductsService.GetProducts() on pp.ProductId equals p.ProductId
+                                  select new PurchaseModel { ProductId = p.ProductId, ProductName = p.Name, Price = p.Price, Quantity = pp.Quantity, Total = pp.Amount, PurchaseDate = pp.CreationDate }).ToList();
 
             return View(model);
         }

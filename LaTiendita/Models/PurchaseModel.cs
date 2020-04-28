@@ -12,7 +12,10 @@ namespace LaTiendita.Models
         [DisplayName("Producto:")]
         [Required(ErrorMessage ="El Producto es requerido")]
         public int ProductId { get; set; }
-        
+
+        [DisplayName("Producto:")]
+        public string ProductName { get; set; }
+
         [DisplayName("Cantidad:")]
         [Required(ErrorMessage = "La Cantidad es requerida")]
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Solo numeros enteros positivos permitidos")]
@@ -25,6 +28,9 @@ namespace LaTiendita.Models
         [DisplayName("Total:")]
         [Required(ErrorMessage = "El Total es requerido")]
         public decimal Total { get; set; }
+
+        [DisplayName("Fecha:")]
+        public DateTime PurchaseDate { get; set; }
 
         public bool IsValid { get; set; }
         public bool IsNew { get; set; }

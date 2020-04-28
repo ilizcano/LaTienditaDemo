@@ -23,6 +23,11 @@ namespace LaTiendita.Services
             return UnitOfWork.GetRepository<Purchase>().GetAll().ToList();
         }
 
+        public List<Purchase> GetPurchasesByUserId(int userId)
+        {
+            return UnitOfWork.GetRepository<Purchase>().GetAll(p=> p.UserId == userId).ToList();
+        }
+
         public void SavePurchase(Purchase purchase) {
             UnitOfWork.GetRepository<Purchase>().Add(purchase);
             UnitOfWork.SaveChanges();

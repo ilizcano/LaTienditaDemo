@@ -12,87 +12,54 @@
 <div class="row" id="homeModule">
     @using (Ajax.BeginForm("Index", "Home", null, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "homeModule", InsertionMode = InsertionMode.Replace }, new { @id = "homeForm" }))
     {
-    <div class="col-md-4">
-        @Html.LabelFor(model => model.Balance)
-        @Html.TextBoxFor(model => model.Balance,  new { @readonly = true, @Value = Model.Balance < 0 ? Model.Balance * -1 : Model.Balance, @style = Model.Balance < 0 ? "color:green;border: 0;" : "border: 0;" })
-    </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.Balance)
+            @Html.TextBoxFor(model => model.Balance, new { @readonly = true, @Value = Model.Balance < 0 ? (Model.Balance * -1).ToString("0.00") : Model.Balance.ToString("0.00"), @style = Model.Balance < 0 ? "color:green;border: 0;" : "border: 0;" })
+        </div>
+        <div class="col-md-4">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Producto
+                        </th>
+                        <th>
+                            Cantidad
+                        </th>
+                        <th>
+                            Costo
+                        </th>
+                        <th>
+                            Total
+                        </th>
+                        <th>
+                            Fecha
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.PurchaseList)
+                    {
+                    <tr>
+                        <td>
+                            @item.ProductName
+                        </td>
+                        <td>
+                            @item.Quantity
+                        </td>
+                        <td>
+                            @item.Price.ToString("0.00")
+                        </td>
+                        <td>
+                            @item.Total.ToString("0.00")
+                        </td>
+                        <td>
+                            @item.PurchaseDate.ToString("MM/dd/yyyy")
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     }
-
-    <div class="col-md-4">
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        Producto
-                    </th>
-                    <th>
-                        Cantidad
-                    </th>
-                    <th>
-                        Costo
-                    </th>
-                    <th>
-                        Total
-                    </th>
-                    <th>
-                        Fecha
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        Gansito
-                    </td>
-                    <td>
-                        2
-                    </td>
-                    <td>
-                        $5
-                    </td>
-                    <td>
-                        $10
-                    </td>
-                    <td>
-                        01/02/2019
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Sabritas
-                    </td>
-                    <td>
-                        1
-                    </td>
-                    <td>
-                        $10
-                    </td>
-                    <td>
-                        $10
-                    </td>
-                    <td>
-                        01/02/2019
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Refresco
-                    </td>
-                    <td>
-                        1
-                    </td>
-                    <td>
-                        $15
-                    </td>
-                    <td>
-                        $15
-                    </td>
-                    <td>
-                        02/03/2019
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-    </div>
 </div>
